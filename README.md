@@ -2,11 +2,10 @@
 This is the git repository for Group 1 in development of COCOMO
 
 # Setup
-1. clone the zip into your local computer (button)
-2. open your terminal and change directory to the folder in your local computer
-3. git init
-4. git remote add origin https://github.com/horwengliang95/cocomogroup1.git
-5. git remote -v
+1. Create a new folder and cd to that folder using your terminal or git bash
+2. git init
+3. git remote add origin https://github.com/horwengliang95/cocomogroup1.git
+4. git remote -v
 
 -Very Import! Please notify team if u did a push, everyone please pull to get the latest version. Avoid conflict!
 -Commit in this format "V1|description" and "V2|simple and short description" (V = version | Description = eg: Update on header)
