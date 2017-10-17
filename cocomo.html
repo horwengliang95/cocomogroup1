@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<!---------------------------------------------------------------------->
+<!-- Assignment 2 CIS525  Greg Kutcher                                  >
+<!-- This application calculates the 'Basic COCOMO' metric as           >
+<!-- per Pressman. Software Engineering, A Practitioner's Approach,(97) >
+<!---------------------------------------------------------------------->
+
+<HTML>
+<HEAD>
+  <TITLE>COCOMO calculation</TITLE>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+function clearStatus() { status = ""; }
+
+function promptKLOC() { status = "KLOC"; }
+
+var a;
+var b;
+var c;
+var d;
+var e;
+var KLOC;
+var checked_button;
+var t;
+
+/*//////////////////////////////////////////////////////////////
+/  If the user changes his/her mind                            /
+//////////////////////////////////////////////////////////////*/
+function ResetMe()  {
+     KLOC="";
+	return(true);
+}
+
+/*//////////////////////////////////////////////////////////////
+/  In JavaScript 1.1, parseFloat returns NaN (recognizable     /
+/  via isNaN() for non-floats. But JavaScript 1.0              /
+/  returns 0 and doesn't have an isNaN routine.                /
+/  Since comparisons to NaN always fail, the > 0               /
+/  test works on either version.                               /
+//////////////////////////////////////////////////////////////*/
+function isFloat(string) {
+    var val = parseFloat(string);
+    return(val > 0);
+}
+
+
+/*//////////////////////////////////////////////////////////////
+/  This function sets the 'checked_button' variable for use in /
+/  the setting of the COCOMO coefficients.                     /
+//////////////////////////////////////////////////////////////*/
+function selectMe(choice)  { checked_button = choice; return(true); }
+
+
+/*//////////////////////////////////////////////////////////////
+/  'chooseMode' takes the 'checked_button' variable to set the /
+/  various COCOMO coeffecients.The user selects a mode based   /
+/  on the project size and difficulty. This in turn translates /
+/  to the set of coeffecients to be used in the calculation.   /
+//////////////////////////////////////////////////////////////*/
+function chooseMode(checked_button)  {
+	if(checked_button=="organic")  {
+	   a = 2.4;
+	   b = 1.05;
+	   c = 2.5;
+	   d = 0.38;
+	}
+	else if(checked_button=="semi-detached")  {
+	   a = 3.0;
+	   b = 1.12;
+	   c = 2.5;
+	   d = 0.35;
+        }
+	else  {
+	   a = 3.6;
+   	   b = 1.20;
+	   c = 2.5;
+	   d = 0.32;
+	}return(true);
+ }
+
+/*/////////////////////////////////////////////////////////////
+/  'checkSubmission' evaluates the input of the 'KLOC' field  /
+/  and calls the 'isFloat' primative to insure that a useful  /
+/  entry was submitted.                                        /
+/////////////////////////////////////////////////////////////*/
+function checkSubmission() {
+  KLOC = document.cocomoForm.KLOC.value;
+  if (!isFloat(KLOC)) {
+      ResetMe();
+      alert("KLOC must be a Float.");
+      return(false);
+  }
+  return(true);
+}
+
+
+/*/////////////////////////////////////////////////////////////
+/  This function receives the value 'e' calculated in the     /
+/  'calCOCeffort() function, along with the variables chosen  /
+/  in the 'chooseMode()' function, to determine the           /
+/  chronological time in months for the development of the    /
+/  application                                                /
+/////////////////////////////////////////////////////////////*/
+ function calcCOCtime(c, d, e)  {
+      t = c*Math.pow(e,d);
+      return(t);
+}
+
+/*/////////////////////////////////////////////////////////////
+/  'calCOCeffort()' takes the varified input for KLOC and     /
+/  and the coefficients for the given project size and finds  /
+/  the measure of effort in person/months                     /
+/////////////////////////////////////////////////////////////*/
+ function calCOCeffort(KLOC)  {
+      chooseMode(checked_button);
+      checkSubmission();
+      e = a * Math.pow(KLOC, b);
+      calcCOCtime(c, d, e);
+
+
+/* Generating the table to display the results */
+
+var rowColor="#B2B8C8";
+document.writeln
+  ('<CENTER>\n' +
+   '<TABLE BORDER=1 WIDTH="80%" CELLPADDING="9">\n' +
+   '  <TR BGCOLOR=' + rowColor + '>\n' +
+   '      <TH COLSPAN=9>YOUR BASIC COCOMO RESULTS!!\n' +
+   '  <TR BGCOLOR=' + rowColor + '>\n' +
+   '      <TH>MODE\n' +
+   '      <TH>"A" variable\n' +
+   '      <TH>"B" variable\n' +
+   '      <TH>"C" variable\n' +
+   '      <TH>"D" variable\n' +
+   '      <TH>KLOC\n' +
+   '      <TH>EFFORT, (in person/months)\n' +
+   '      <TH>DURATION, (in months)\n' +
+   '	  <TH>STAFFING, (recommended)\n' +
+   '  <TR><TD>' + checked_button + '\n' +
+   '      <TD>' + a + '\n' +
+   '      <TD>' + b + '\n' +
+   '      <TD>' + c + '\n' +
+   '      <TD>' + d + '\n' +
+   '      <TD>' + KLOC + '\n' +
+   '      <TD>' + e + '\n' +
+   '      <TD>' + t + '\n' +
+   '	  <TD>' + e/t + '\n' +
+   '  <TR BGCOLOR=' +rowColor + '>\n' +
+   '      <TD COLSPAN=9>' +
+   '      <IMG SRC="laptop.gif" ALIGN="RIGHT" ALT="Convenient laptop">' +
+   '      Explanation: ' +
+   '      The coefficients are set according to the project mode selected ' +
+   '      on the previous page, (as per Boehm,81). The final estimates ' +
+   '      are determined in the following manner:' +
+   '      <P><P> <B> effort </B>=a*KLOC<SUP>b</SUP>, in person/months, with KLOC = lines' +
+   '      of code, (in the thousands), and:' +
+   '      <P><P> <B> duration </B>=c*effort<SUP>d</SUP>, finally:' +
+   '      <P><P> <B> staffing </B>=effort/duration' +
+   '      <P><P> For further reading, see Boehm, "Software Engineering ' +
+   '      Econimics",(81)' +
+   '      <P><P> <B> WARNING: </B> If you see "NaN" in any field above, you have ' +
+   '      entered an <B>INVALID</B> value for KLOC!! Hit the "BACK" button ' +
+   '      on your browser, hit the "RESET" button, and enter a <B>DECIMAL NUMBER</B> ' +
+   '      in the KLOC input text box! ' +
+   '      <P><P><B><I>Thank you</I></B>, and happy software engineering!</TD>' +
+   '</TABLE>' +
+   '</CENTER>');
+
+	return(e);
+}
+// -->
+</SCRIPT>
+</HEAD>
+
+<BODY BGCOLOR="WHITE">
+<H1 ALIGN="center"> <FONT COLOR="blue">BASIC COCOMO calculation</FONT></H1>
+
+<NOSCRIPT>
+<P>
+<STRONG>You need to have a Javascript enabled browser to use this web page.</STRONG>
+<P>
+</NOSCRIPT>
+
+
+<FORM NAME="cocomoForm" METHOD="post" ACTION="">
+
+<TABLE BORDER=0
+ BGCOLOR="#B2B8C8"
+ WIDTH="100%"
+ CELLPADDING="5">
+<TR><TD><INPUT TYPE="RADIO" NAME="mode"
+	           VALUE="organic"
+	    onFocus="selectMe('organic')">
+		Organic Mode:
+<BR>
+<INPUT TYPE="RADIO" NAME="mode"
+                   VALUE="semi-detached"
+	    onFocus="selectMe('semi-detached')">
+		Semi-detached Mode:
+<BR>
+<INPUT TYPE="RADIO" NAME="mode"
+	           VALUE="embedded"
+	    onFocus="selectMe('embedded')">
+		Embedded Mode:
+</TD>
+
+
+<TD><IMG SRC="desktop.gif"
+     ALT="trusty desktop!"
+   WIDTH=97
+  HEIGHT=68
+   ALIGN="RIGHT"
+</TD>
+
+
+<TD ALIGN="RIGHT">KLOC estimate: <INPUT TYPE="TEXT" NAME="KLOC"
+                      onFocus="promptKLOC()"
+                      onBlur="clearStatus()">
+<P>
+
+<INPUT TYPE="BUTTON"
+  var VALUE="Calculate COCOMO"
+    onClick="calCOCeffort(KLOC.value)">
+
+<INPUT TYPE="RESET" NAME="RESET"
+		    onClick="ResetMe()">
+</TD>
+
+<TR>
+<TD  COLSPAN=3> <HR WIDTH="100%" SIZE="3">
+     This application derives the <B>COCOMO</B> software engineering metric as found
+     in Robert Pressman's <I>"Software Engineering, A Practitioner's Approach"</I>,
+     (McGraw-Hill,97). The specific version utilized here is the "basic" model. <P><P>
+     The available modes, selected by the radio buttons, are explained by Pressman
+     as follows, (page 122):
+     <P><P><B>ORGANIC:</B> Relatively small, simple software projects in which small teams
+     with good application experience work to a set of less than rigid requirements.
+
+     <P><P><B>SEMI-DETACHED:</B> An intermediate, (in size and complexity), software project
+     in which teams with mixed experience levels must meet a mix of rigid and less than
+     rigid requirements.
+
+     <P><P><B>EMBEDDED:</B> A software project that must be developed within a set of tight
+     hardware, software and operation constraints.
+
+     <P><P><B>INSTRUCTIONS:</B> Choose a mode for your project based on the criteria above
+     by selecting a corresponding radio button. Then enter the estimated lines of code -
+     in the THOUSANDS - in the KLOC input text box. To see your result, simply hit the "calculate
+     COCOMO" button. If you enter anything other than a number, you will be shown a prompt            informing you so. You will then be taken to the results page, so that you can, if desired,       see the coefficients for the mode that you selected. The results, however, will be read          "NaN" and will be bogus. Hit the "back" button on your browser, select the "reset" button,       re-select the mode and enter a number in the KLOC text box and finally hit the "calculate        COCOMO" button.
+
+</TD>
+
+</TABLE>
+
+</FORM>
+
+</BODY>
+</HTML>
