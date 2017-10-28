@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<TITLE style=font-family:calibri>YOUR BASIC COCOMO RESULTS!!</TITLE>
+<meta charset="utf-8">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-color: #BDBDBD;
+    font-family: calibri;
+}
+th, td {
+    padding: 12px;
+}
+h1 {
+  font-family: calibri;
+  font-weight: bold
+}
+.button {
+    background-color: #008CBA;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+div.grey          { background-color: #DEDEDE; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>YOUR BASIC COCOMO RESULTS!!</h1>
+      <div class="row">
+        <div class="col-lg-8">
+          <table style="width:100%">
+            <tr>
+              <th>MODE</th>
+              <td>undefined</td> 
+            </tr>
+            <tr>
+              <th>"A" variable</th>
+              <td>3.6</td>
+            </tr>
+            <tr>
+              <th>"B" variable</th>
+              <td>1.2</td>
+            </tr>
+            <tr>
+              <th>"C" variable</th>
+              <td>2.5</td>
+            </tr>
+            <tr>
+              <th>"D" variable</th>
+              <td>0.32</td>
+            </tr>
+            <tr>
+              <th>KLOC</th>
+              <td>45</td>
+            </tr>
+            <tr>
+              <th>EFFORT, (in person/months)</th>
+              <td>346.8626336708084</td>
+            </tr>
+            <tr>
+              <th>DURATION, (in months)</th>
+              <td>16.247644728621417</td>
+            </tr>
+            <tr>
+              <th>STAFFING, (recommended)</th>
+              <td>21.34848708624115</td>
+            </tr>
+        </table>
+        <div><p><a href="#" class="button" style="position: absolute; right: 0;">Calculate Again</a></p></div>
+        </div>
+        <div class="col-lg-4 grey">
+          <p>Explanation: The coeﬃcients are set according to the project mode selected on the previous page, (as per Boehm,81). The ﬁnal estimates are determined in the following manner: eﬀort =a*KLOCb, in person/months, with KLOC = lines of code, (in the thousands), and:
+          </p>
+          <p><b>duration</b> =c*effortd, ﬁnally:</p>
+          <p><b>staffing</b> =effort/duration</p>
+          <p>For further reading, see Boehm, "Software Engineering Econimics",(81)</p>
+          <p><b>WARNING:</b> If you see "NaN" in any ﬁeld above, you have entered an INVALID value for KLOC!! Hit the "BACK" button on your browser, hit the "RESET" button, and enter a DECIMAL NUMBER in the KLOC input text box!</p>
+          <p>Thank you, and happy software engineering!</p>
+        </div>
+      </div>  
+    </div>
+  </body>
+</html>
