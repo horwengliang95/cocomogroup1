@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>COCOMO CALCULATOR</title>
+
+	<style type="text/css">
+		* {
+		    box-sizing: border-box;
+		}
+
+		body {
+		    margin: 10px;
+		}
+
+		/* Create two equal columns that floats next to each other */
+		.column {
+		    float: left;
+		    width: 50%;
+		    padding: 20px;
+		    height: initial;
+		    font-family: "Helvetica";
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+		    content: "";
+		    display: table;
+		    clear: both;
+		}
+
+		h2{
+			padding-top: 75px;
+			font-size: 35px;
+			color: #5b9aa0;
+			font-style: bold;
+			text-align: center;
+		}
+
+		h3{
+			padding-top: 25px;
+			font-size: 25px;
+			text-align: center;
+			font-style: normal;
+		}
+
+		.button {
+		    background-color: #008CBA; /* Blue */
+		    border: none;
+		    color: white;
+		    padding: 20px;
+		    width: 150px;
+		    height: 100px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		    border-radius: 8px;
+		}
+
+		.button1 {
+		    background-color: #008CBA; /* Blue */
+		    border: none;
+		    color: white;
+		    padding: 20px;
+		    width: 180px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		    border-radius: 8px;
+		}
+
+		input[type=text] {
+		    width: 60%;
+		    padding: 12px 20px;
+		    margin: 8px 0;
+		    box-sizing: border-box;
+		    font-size: 15px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="row">
+	  <div class="column" style="background-color:white;">
+	    <h2>BASIC COCOMO Calculation</h2>
+	    <div style="padding-top: 15px;">
+	    	<table align="center">
+		    	<tr>
+		    		<td><button class="button" >Organic Mode</button></td>
+		    		<td><button class="button" >Semi-Detached Mode</button></td>
+		    		<td><button class="button" >Semi-Detached Mode</button></td>
+		    	</tr>
+		    </table>
+	    </div>
+
+	    <h3>KLOC Estimate</h3>
+
+	    <div style="text-align: center; padding-top: 5px;">
+	    	<input type="text" id="kloc" name="kloc">
+	    </div>
+
+	    <div style="padding-top: 15px;">
+	    	<table align="center">
+		    	<tr>
+		    		<td><button class="button1" >Reset</button></td>
+		    		<td><button class="button1" >Calculate COCOMO</button></td>
+		    	</tr>
+		    </table>
+	    </div>
+	    
+	  </div>
+	  <div class="column" style="background-color:#e0e2e4; text-align: justify;">
+	    
+	    <!-- Introduction of Cocomo and Instruction  -->
+	    <p style="padding-top: 50px;">This application derives the COCOMO software engineering metric as found in Robert Pressman's "Software Engineering, A Practitioner's Approach", (McGraw-Hill,97). The specific version utilized here is the "basic" model. 
+	    </p>
+
+	    <p>
+	    	The available modes, selected by the radio buttons, are explained by Pressman as follows, (page 122):
+	    </p>
+
+	    <p><b>ORGANIC: </b>Relatively small, simple software projects in which small teams with good application experience work to a set of less than rigid requirements.</p>
+
+	    <p><b>SEMI-DETACHED:</b> An intermediate, (in size and complexity), software project in which teams with mixed experience levels must meet a mix of rigid and less than rigid requirements.</p>
+
+	    <p><b>EMBEDDED: </b>A software project that must be developed within a set of tight hardware, software and operation constraints.</p>
+
+	    <p><b>INSTRUCTIONS:</b> Choose a mode for your project based on the criteria above by selecting a corresponding radio button. Then enter the estimated lines of code - in the THOUSANDS - in the KLOC input text box. To see your result, simply hit the "calculate COCOMO" button. If you enter anything other than a number, you will be shown a prompt informing you so. You will then be taken to the results page, so that you can, if desired, see the coefficients for the mode that you selected. The results, however, will be read "NaN" and will be bogus. Hit the "back" button on your browser, select the "reset" button, re-select the mode and enter a number in the KLOC text box and finally hit the "calculate COCOMO" button.</p>
+
+	  </div>
+	</div>
+</body>
+</html>
