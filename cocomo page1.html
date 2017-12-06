@@ -2,6 +2,104 @@
 <html>
 <head>
 	<title>COCOMO CALCULATOR</title>
+	<script language="JavaScript">
+		
+		/* CLEAR TEXT */
+		function clear(){
+			status = "";
+		}
+
+		/* PROMPT KLOC */
+		function promptKLOC(){
+			status = "KLOC";
+		}
+
+		/* RESET CHOICE */
+		function reset()  {
+		     KLOC="";
+			return(true);
+		}
+
+		/* RETURN NaN*/
+		function isFloat(string) {
+		    var val = parseFloat(string);
+		    return(val > 0);
+		}
+
+		/* Sets the 'button' variable to be used with COCOMO coefficients. */
+		function select(choice){
+			button = choice;
+			return(true);
+		}
+
+		/* DECLARE VAR */
+		var a;
+		var b;
+		var c;
+		var d;
+		var e;
+		var KLOC;
+		var t;
+
+		/* CHOOSE MODE */
+		function mode(button){
+			if(button=="organic"){
+				a = 2.4;
+				b = 1.05;
+			   	c = 2.5;
+			   	d = 0.38;
+			} 
+			else if(button=="semi-detached"){
+			   	a = 3.0;
+			   	b = 1.12;
+			   	c = 2.5;
+			   	d = 0.35;
+		    }
+			else if(button=="embedded")  {
+			   	a = 3.6;
+				b = 1.20;
+			   	c = 2.5;
+			   	d = 0.32;
+			}
+		  	else {
+		    	a = 0;
+		    	b = 0;
+		    	c = 0;
+		    	d = 0;
+			}
+			return(true);
+		}
+
+		/*  Evaluates the input of the 'KLOC' field. Calls the 'isFloat'
+			primative to insure that a useful entry was submitted. */
+		function checkSubmission(){
+		  	KLOC = document.cocomoForm.KLOC.value;
+		  	if (!isFloat(KLOC)) {
+		    	ResetMe();
+		      	alert("KLOC must be a Float.");
+		      	return(false);
+		  }
+		  return(true);
+		}
+
+		/* Receives the value 'e' calculated in the 'calCOCeffort() function, along
+			with the variables chosen in the 'chooseMode()' function, to determine
+			the chronological time in months for the development of the application. */
+		function calcCOCtime(c, d, e){
+      		t = c*Math.pow(e,d);
+      		return(t);
+		}
+
+		/* Takes the verified input for KLOC and the coefficients for the given
+			project size and finds the measure of effort in person/months. */
+		function calCOCeffort(KLOC){
+	    	chooseMode(checked_button);
+	      	checkSubmission();
+	      	e = a * Math.pow(KLOC, b);
+	      	calcCOCtime(c, d, e);
+	      	return(e);
+	    }
+	</script>
 
 	<style type="text/css">
 		* {
@@ -154,11 +252,12 @@
 		  <div class="column">
 		    <h2>BASIC COCOMO Calculation</h2>
 		    <div style="padding-top: 15px;">
+		    <form name="cocomoForm" method="post" action="cocomopage2.php">
 		    	<table align="center">
 			    	<tr>
-			    		<td><button class="button" >Organic Mode</button></td>
-			    		<td><button class="button" >Semi-Detached Mode</button></td>
-			    		<td><button class="button" >Semi-Detached Mode</button></td>
+			    		<td><button class="button" name="mode" value="organic" onclick="select('organic')">Organic Mode</button></td>
+			    		<td><button class="button" name="mode" value="semi-detached" onclick="select('semi-detached')">Semi-Detached Mode</button></td>
+			    		<td><button class="button" name="mode" value="embedded" onclick="select('embedded')">Embedded Mode</button></td>
 			    	</tr>
 			    </table>
 		    </div>
@@ -166,16 +265,17 @@
 		    <h3>KLOC Estimate</h3>
 
 		    <div style="text-align: center; padding-top: 5px;">
-		    	<input type="text" id="kloc" name="kloc">
+		    	<input type="text" id="KLOC" name="KLOC" onFocus="promptKLOC()" onBlur="clear()">
 		    </div>
 
 		    <div style="padding-top: 15px;">
 		    	<table align="center">
 			    	<tr>
-			    		<td><button class="button1" >Reset</button></td>
-			    		<td><button class="button2" style="vertical-align:middle"><span>Calculate COCOMO</span></button></td>
+			    		<td><button class="button1" onclick="reset()">Reset</button></td>
+			    		<td><button class="button2" onclick="calCOCeffort(KLOC.value)" style="vertical-align:middle"><span>Calculate COCOMO</span></button></td>
 			    	</tr>
 			    </table>
+			</form>
 		    </div>
 		    
 		  </div>
