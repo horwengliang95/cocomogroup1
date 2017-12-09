@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>COCOMO CALCULATOR</title>
+
+  <style type="text/css">
+    * {
+        box-sizing: border-box;
+    }
+table.results {
+    border: 2px;
+    border-collapse: collapse;
+    border-color: #BDBDBD;
+}
+tr.table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-color: #BDBDBD;
+    border-right: thin solid #BDBDBD;
+}
+th{
+  border-right: thin solid #BDBDBD;
+}
+th, td {
+    padding: 3px;
+}
+    body {
+        margin: 10px;
+    }
+
+    /* Create two equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 50%;
+        padding: 20px;
+        padding-top: 25px;
+        height: initial;
+        font-family: "Helvetica";
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .container{
+      padding-top: 50px;
+    }
+
+    h2{
+      font-size: 35px;
+      color: #5b9aa0;
+      font-style: bold;
+      text-align: center;
+    }
+    .button {
+        background-color: #008CBA; /* Blue */
+        border: none;
+        color: white;
+        padding: 20px;
+        width: 150px;
+        height: 100px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+    .button:hover {background-color: #4FC3F7}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="column">
+        <h2>YOUR BASIC COCOMO RESULTS!!</h2>
+        <div style="padding-top: 10px;">
+          <table class="results" style="width:100%; text-align: justify;">
+            <tr class="table">
+              <th>MODE</th>
+              <td><?php echo $_POST["mode"]; ?></td> 
+            </tr>
+            <tr class="table">
+              <th>"A" variable</th>
+              <td><?php echo $_POST["a"]; ?></td>
+            </tr>
+            <tr class="table">
+              <th>"B" variable</th>
+              <td><?php echo $_POST["b"]; ?></td>
+            </tr>
+            <tr class="table">
+              <th>"C" variable</th>
+              <td><?php echo $_POST["c"]; ?></td>
+            </tr>
+            <tr class="table">
+              <th>"D" variable</th>
+              <td><?php echo $_POST["d"]; ?></td>
+            </tr>
+            <tr class="table">
+              <th>KLOC</th>
+              <td><?php echo $_POST["KLOC"]; ?></td>
+            </tr>
+            <tr class="table">
+              <th>EFFORT, (in person/months)</th>
+              <td><?php echo $_POST["e"]; ?></td>
+            </tr>
+            <tr class="table">
+              <th>DURATION, (in months)</th>
+              <td><?php echo $_POST["t"]; ?></td>
+            </tr>
+            <tr class="table">
+              <th>STAFFING, (recommended)</th>
+              <td><?php echo $_POST["e"]; ?></td>
+            </tr>
+        </table>
+        </div>       
+      </div>
+      <div class="column" style="background-color:#e0e2e4; text-align: justify; ">
+      <p>Explanation: The coeﬃcients are set according to the project mode selected on the previous page, (as per Boehm,81). The ﬁnal estimates are determined in the following manner: eﬀort =a*KLOCb, in person/months, with KLOC = lines of code, (in the thousands), and:
+          </p>
+          <p><b>duration</b> =c*effortd, ﬁnally:</p>
+          <p><b>staffing</b> =effort/duration</p>
+          <p>For further reading, see Boehm, "Software Engineering Econimics",(81)</p>
+          <p><b>WARNING:</b> If you see "NaN" in any ﬁeld above, you have entered an INVALID value for KLOC!! Hit the "BACK" button on your browser, hit the "RESET" button, and enter a DECIMAL NUMBER in the KLOC input text box!</p>
+          <p>Thank you, and happy software engineering!</p>
+      </div>
+    </div>
+  </div>
+  <div style="padding-top: 5px;">
+        <table align="center">
+            <tr>
+              <td><button class="button" onclick="location.href='cocomopage1.html';">Calculate Again</button></td>
+            </tr>
+          </table>
+        </div>
+</body>
+</html>
