@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>COCOMO CALCULATOR</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script language="JavaScript">
+		
+		/* CLEAR TEXT */
+		function clear(){
+			status = "";
+		}
+
+		/* PROMPT KLOC */
+		function promptKLOC(){
+			status = "KLOC";
+		}
+
+		/* DECLARE VAR */
+		var a;
+		var b;
+		var c;
+		var d;
+		var e;
+		var KLOC;
+		var checked_button;
+		var t;
+
+		/* RESET CHOICE */
+		function reset()  {
+		     KLOC = "";
+			return(true);
+		}
+
+		/* RETURN NaN*/
+		function isFloat(string) {
+		    var val = parseFloat(string);
+		    return(val > 0);
+		}
+
+		/* Sets the 'button' variable to be used with COCOMO coefficients. */
+		function selectMe(choice){
+			checked_button = choice;
+			return(true);
+		}
+
+		/* CHOOSE MODE */
+		function chmode(checked_button){
+			if(checked_button=="Organic"){
+				a = 2.4;
+				b = 1.05;
+			   	c = 2.5;
+			   	d = 0.38;
+			} 
+			else if(checked_button=="Semi-detached"){
+			   	a = 3.0;
+			   	b = 1.12;
+			   	c = 2.5;
+			   	d = 0.35;
+		    }
+			else {
+			   	a = 3.6;
+				b = 1.20;
+			   	c = 2.5;
+			   	d = 0.32;
+			}
+			return(true);
+		}
+
+		/*  Evaluates the input of the 'KLOC' field. Calls the 'isFloat'
+			primative to insure that a useful entry was submitted. */
+		function checkSubmission(){
+		  	KLOC = document.cocomoForm.KLOC.value;
+		  	if (!isFloat(KLOC)) {
+		    	reset();
+		      	alert("KLOC must be a Float.");
+		      	return(false);
+		  }
+		  return(true);
+		}
+
+		/* Receives the value 'e' calculated in the 'calCOCeffort() function, along
+			with the variables chosen in the 'chooseMode()' function, to determine
+			the chronological time in months for the development of the application. */
+		function calcCOCtime(c, d, e){
+      		t = c*Math.pow(e,d);
+      		return(t);
+		}
+
+		/* Takes the verified input for KLOC and the coefficients for the given
+			project size and finds the measure of effort in person/months. */
+		function calCOCeffort(KLOC){
+	    	chmode(checked_button);
+	      	checkSubmission();
+	      	e = a * Math.pow(KLOC, b);
+	      	calcCOCtime(c, d, e);
+
+	      	var rowColor="#B2B8C8";
+			document.writeln
+			  (
+			   '<div style="padding-top:50px;">\n' +
+			   '	<div style="content: ""; display:table; clear:both;">\n' +
+			   '		<div style="float:left; width:50%; padding:20px; padding-top:25px; height:initial; font-family:helvetica;">\n' +
+			   '		<h2 style="font-family:helvetica; font-size:25px; color:#5b9aa0; font-style:bold; text-align:center;">YOUR BASIC COCOMO RESULTS !!!</h2>\n' +
+			   '		<div style="padding-top: 10px;">\n' +
+			   '			<table style="width:90%; text-align:justify; border:2px; border-collapse:collapse; border-color:#BDBDBD;">\n' +
+			   '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>MODE</b>\n' +
+			   '	  				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + checked_button + '\n' +
+			   '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+			   '      					<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"A" variable</b>\n' +
+			   '      					<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + a + '\n' +
+			   '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"B" variable</b>\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + b + '\n' +
+			   '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"C" variable</b>\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + c + '\n' +
+			   '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"D" variable</b>\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + d + '\n' +
+			   '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>KLOC</b>\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + KLOC + '\n' +
+			   '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>EFFORT, (in person/months)</b>\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + e + '\n' +
+			   '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>DURATION, (in months)</b>\n' +
+			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + t + '\n' +
+			   '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+			   '	  				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>STAFFING, (recommended)</b>\n' +
+			   '	  				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + e/t + '\n' +
+			   ' 				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+			   '			</table>\n' +
+			   '		<div style="padding-top:40px;">\n' +
+			   '			<table align="right">\n' +
+			   '				<tr>\n' +
+			   '					<td><input type="button" style="background-color:#008CBA; border:none; color:white; padding:20px; width:190px; height:70px; text-align:center; display: inline-block; font-size:16px; margin: 4px 2px; cursor: pointer; border-radius: 8px;" onClick="history.go(0)" VALUE="Calculate Again"></td>\n' +
+			   '				</tr>\n' +
+			   '			</table>\n' +			   
+			   '		</div></div></div>\n' +
+			   '		<div style="padding-top:5px;">\n' +
+			   '		<table style="align:center">\n' +
+			   '			<tr>\n' +
+			   '				<td><div style="float:right; width:100%; padding:20px; padding-top:25px; height:initial; font-family:helvetica; background-color:#e0e2e4; text-align:justify;">' +
+			   '				<p>Explanation: The coefficients are set according to the project mode selected on the previous page, (as per Boehm,81). The ﬁnal estimates are determined in the following manner: effort =a*KLOCb, in person/months, with KLOC = lines of code, (in the thousands), and:</p>' +
+			   '				<p><b>duration</b> =c*effortd, ﬁnally:</p>' +
+			   '				<p><b>staffing</b> =effort/duration</p>' +
+			   '				<p>For further reading, see Boehm, "Software Engineering Econimics",(81)</p>' +
+			   '				<p><b>WARNING:</b> If you see "NaN" in any ﬁeld above, you have entered an INVALID value for KLOC!! Hit the "BACK" button on your browser, hit the "RESET" button, and enter a DECIMAL NUMBER in the KLOC input text box!</p>' +
+			   '				<p>Thank you, and happy software engineering!</p>\n' +
+			   '			</div></td>\n' +
+			   '			</tr>\n' +
+			   '		</table>\n' +
+			   '		</div></div>'
+			   );
+			return(e);
+	}
+	</script>
+</head>
+<body>
+	<form name="cocomoForm" method="post" action="">
+	<div class="container">
+		<div class="row">
+		  <div class="column">
+		    <h2>BASIC COCOMO Calculation</h2>
+		    <div style="padding-top: 15px;">
+		    	<table align="center">
+			    	<tr>
+			    		<td><label><input type="radio" name="toggle" value="organic" onfocus="selectMe('Organic')"><span>Organic Mode</span></label></td>
+			    		<td><label><input type="radio" name="toggle" value="semi-detached" onfocus="selectMe('Semi-detached')"><span>Semi-Detached Mode</span></label></td>
+			    		<td><label><input type="radio"  name="toggle" value="embedded" onfocus="selectMe('Embedded')"><span>Embedded Mode</span></label></td>
+			    	</tr>
+			    </table>
+		    </div>
+
+		    <h3>KLOC Estimate</h3>
+
+		    <div style="text-align: center; padding-top: 5px;">
+		    	<input type="text" name="KLOC" onfocus="promptKLOC()" onblur="clear()">
+		    </div>
+
+		    <div style="padding-top: 15px;">
+		    	<table align="center">
+			    	<tr>
+			    		<td><button class="button1" onclick="reset()" type="reset">Reset</button></td>
+			    		<td><button class="button2" onclick="calCOCeffort(KLOC.value)" style="vertical-align:middle"><span>Calculate COCOMO</span></button></td>
+			    	</tr>
+			    </table>
+		    </div>
+		    
+		  </div>
+		  <div class="column" style="background-color:#e0e2e4; text-align: justify; ">
+		    
+		    <!-- Introduction of Cocomo and Instruction  -->
+		    <p>This application derives the COCOMO software engineering metric as found in Robert Pressman's "Software Engineering, A Practitioner's Approach", (McGraw-Hill,97). The specific version utilized here is the "basic" model. 
+		    </p>
+
+		    <p>
+		    	The available modes, selected by the radio buttons, are explained by Pressman as follows, (page 122):
+		    </p>
+
+		    <p><b>ORGANIC: </b>Relatively small, simple software projects in which small teams with good application experience work to a set of less than rigid requirements.</p>
+
+		    <p><b>SEMI-DETACHED:</b> An intermediate, (in size and complexity), software project in which teams with mixed experience levels must meet a mix of rigid and less than rigid requirements.</p>
+
+		    <p><b>EMBEDDED: </b>A software project that must be developed within a set of tight hardware, software and operation constraints.</p>
+
+		    <p><b>INSTRUCTIONS:</b> Choose a mode for your project based on the criteria above by selecting a corresponding radio button. Then enter the estimated lines of code - in the THOUSANDS - in the KLOC input text box. To see your result, simply hit the "calculate COCOMO" button. If you enter anything other than a number, you will be shown a prompt informing you so. You will then be taken to the results page, so that you can, if desired, see the coefficients for the mode that you selected. The results, however, will be read "NaN" and will be bogus. Hit the "back" button on your browser, select the "reset" button, re-select the mode and enter a number in the KLOC text box and finally hit the "calculate COCOMO" button.</p>
+
+		  </div>
+		</div>
+	</div>
+	</form>
+</body>
+</html>
