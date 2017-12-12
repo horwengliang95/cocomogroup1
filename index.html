@@ -4,7 +4,7 @@
 	<title>COCOMO CALCULATOR</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script language="JavaScript">
-		
+
 		/* CLEAR TEXT */
 		function clear(){
 			status = "";
@@ -50,7 +50,7 @@
 				b = 1.05;
 			   	c = 2.5;
 			   	d = 0.38;
-			} 
+			}
 			else if(checked_button=="Semi-detached"){
 			   	a = 3.0;
 			   	b = 1.12;
@@ -86,75 +86,96 @@
       		return(t);
 		}
 
+		function isOneChecked() {
+			  // All <input> tags...
+			  var chx = document.getElementsByTagName('input');
+			  for (var i=0; i<chx.length; i++) {
+			    // If you have more than one radio group, also check the name attribute
+			    // for the one you want as in && chx[i].name == 'choose'
+			    // Return true from the function on first match of a checked item
+			    if (chx[i].type == 'radio' && chx[i].checked) {
+			      return true;
+			    }
+			  }
+			  // End of the loop, return false
+				alert("Please Select a Mode");
+			  return false;
+			}
+
 		/* Takes the verified input for KLOC and the coefficients for the given
 			project size and finds the measure of effort in person/months. */
 		function calCOCeffort(KLOC){
-	    	chmode(checked_button);
-	      	checkSubmission();
-	      	e = a * Math.pow(KLOC, b);
-	      	calcCOCtime(c, d, e);
+			var bool = this.isOneChecked();
+			if(bool==true){
+				chmode(checked_button);
+					checkSubmission();
+					e = a * Math.pow(KLOC, b);
+					calcCOCtime(c, d, e);
 
-	      	var rowColor="#B2B8C8";
+					var rowColor="#B2B8C8";
 			document.writeln
-			  (
-			   '<div style="padding-top:50px;">\n' +
-			   '	<div style="content: ""; display:table; clear:both;">\n' +
-			   '		<div style="float:left; width:50%; padding:20px; padding-top:25px; height:initial; font-family:helvetica;">\n' +
-			   '		<h2 style="font-family:helvetica; font-size:25px; color:#5b9aa0; font-style:bold; text-align:center;">YOUR BASIC COCOMO RESULTS !!!</h2>\n' +
-			   '		<div style="padding-top: 10px;">\n' +
-			   '			<table style="width:90%; text-align:justify; border:2px; border-collapse:collapse; border-color:#BDBDBD;">\n' +
-			   '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>MODE</b>\n' +
-			   '	  				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + checked_button + '\n' +
-			   '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
-			   '      					<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"A" variable</b>\n' +
-			   '      					<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + a + '\n' +
-			   '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"B" variable</b>\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + b + '\n' +
-			   '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"C" variable</b>\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + c + '\n' +
-			   '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"D" variable</b>\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + d + '\n' +
-			   '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>KLOC</b>\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + KLOC + '\n' +
-			   '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>EFFORT, (in person/months)</b>\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + e + '\n' +
-			   '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>DURATION, (in months)</b>\n' +
-			   '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + t + '\n' +
-			   '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
-			   '	  				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>STAFFING, (recommended)</b>\n' +
-			   '	  				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + e/t + '\n' +
-			   ' 				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
-			   '			</table>\n' +
-			   '		<div style="padding-top:40px;">\n' +
-			   '			<table align="right">\n' +
-			   '				<tr>\n' +
-			   '					<td><input type="button" style="background-color:#008CBA; border:none; color:white; padding:20px; width:190px; height:70px; text-align:center; display: inline-block; font-size:16px; margin: 4px 2px; cursor: pointer; border-radius: 8px;" onClick="history.go(0)" VALUE="Calculate Again"></td>\n' +
-			   '				</tr>\n' +
-			   '			</table>\n' +			   
-			   '		</div></div></div>\n' +
-			   '		<div style="padding-top:5px;">\n' +
-			   '		<table style="align:center">\n' +
-			   '			<tr>\n' +
-			   '				<td><div style="float:right; width:100%; padding:20px; padding-top:25px; height:initial; font-family:helvetica; background-color:#e0e2e4; text-align:justify;">' +
-			   '				<p>Explanation: The coefficients are set according to the project mode selected on the previous page, (as per Boehm,81). The ﬁnal estimates are determined in the following manner: effort =a*KLOCb, in person/months, with KLOC = lines of code, (in the thousands), and:</p>' +
-			   '				<p><b>duration</b> =c*effortd, ﬁnally:</p>' +
-			   '				<p><b>staffing</b> =effort/duration</p>' +
-			   '				<p>For further reading, see Boehm, "Software Engineering Econimics",(81)</p>' +
-			   '				<p><b>WARNING:</b> If you see "NaN" in any ﬁeld above, you have entered an INVALID value for KLOC!! Hit the "BACK" button on your browser, hit the "RESET" button, and enter a DECIMAL NUMBER in the KLOC input text box!</p>' +
-			   '				<p>Thank you, and happy software engineering!</p>\n' +
-			   '			</div></td>\n' +
-			   '			</tr>\n' +
-			   '		</table>\n' +
-			   '		</div></div>'
-			   );
-			return(e);
+				(
+				 '<div style="padding-top:50px;">\n' +
+				 '	<div style="content: ""; display:table; clear:both;">\n' +
+				 '		<div style="float:left; width:50%; padding:20px; padding-top:25px; height:initial; font-family:helvetica;">\n' +
+				 '		<h2 style="font-family:helvetica; font-size:25px; color:#5b9aa0; font-style:bold; text-align:center;">YOUR BASIC COCOMO RESULTS !!!</h2>\n' +
+				 '		<div style="padding-top: 10px;">\n' +
+				 '			<table style="width:90%; text-align:justify; border:2px; border-collapse:collapse; border-color:#BDBDBD;">\n' +
+				 '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>MODE</b>\n' +
+				 '	  				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + checked_button + '\n' +
+				 '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+				 '      					<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"A" variable</b>\n' +
+				 '      					<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + a + '\n' +
+				 '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"B" variable</b>\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + b + '\n' +
+				 '  				<tr style="border: 1px solid black; border-collapse: collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"C" variable</b>\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + c + '\n' +
+				 '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>"D" variable</b>\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + d + '\n' +
+				 '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>KLOC</b>\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + KLOC + '\n' +
+				 '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>EFFORT, (in person/months)</b>\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + e + '\n' +
+				 '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>DURATION, (in months)</b>\n' +
+				 '      				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + t + '\n' +
+				 '  				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+				 '	  				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;"><b>STAFFING, (recommended)</b>\n' +
+				 '	  				<td style="font-family:helvetica; border-right:thin solid #BDBDBD; padding:3px;">' + e/t + '\n' +
+				 ' 				<tr style="border: 1px solid black; border-collapse:collapse; border-color: #BDBDBD; border-right: thin solid #BDBDBD;">\n' +
+				 '			</table>\n' +
+				 '		<div style="padding-top:40px;">\n' +
+				 '			<table align="right">\n' +
+				 '				<tr>\n' +
+				 '					<td><input type="button" style="background-color:#008CBA; border:none; color:white; padding:20px; width:190px; height:70px; text-align:center; display: inline-block; font-size:16px; margin: 4px 2px; cursor: pointer; border-radius: 8px;" onClick="history.go(0)" VALUE="Calculate Again"></td>\n' +
+				 '				</tr>\n' +
+				 '			</table>\n' +
+				 '		</div></div></div>\n' +
+				 '		<div style="padding-top:5px;">\n' +
+				 '		<table style="align:center">\n' +
+				 '			<tr>\n' +
+				 '				<td><div style="float:right; width:100%; padding:20px; padding-top:25px; height:initial; font-family:helvetica; background-color:#e0e2e4; text-align:justify;">' +
+				 '				<p>Explanation: The coefficients are set according to the project mode selected on the previous page, (as per Boehm,81). The ﬁnal estimates are determined in the following manner:<b> effort =a*KLOCb</b>, in person/months, with <b>KLOC = lines of code, (in the thousands)</b>, and:</p>' +
+				 '				<p><b>duration</b> =c*effortd, ﬁnally:</p>' +
+				 '				<p><b>staffing</b> =effort/duration</p>' +
+				 '				<p>For further reading, see Boehm, "Software Engineering Econimics",(81)</p>' +
+				 '				<p><b>WARNING:</b> If you see "NaN" in any ﬁeld above, you have entered an INVALID value for KLOC!! Hit the "BACK" button on your browser, hit the "RESET" button, and enter a DECIMAL NUMBER in the KLOC input text box!</p>' +
+				 '				<p>Thank you, and happy software engineering!</p>\n' +
+				 '			</div></td>\n' +
+				 '			</tr>\n' +
+				 '		</table>\n' +
+				 '		</div></div>'
+				 );
+				 return(e);
+			}
+
+
 	}
 	</script>
 </head>
@@ -167,7 +188,7 @@
 		    <div style="padding-top: 15px;">
 		    	<table align="center">
 			    	<tr>
-			    		<td><label><input type="radio" name="toggle" value="organic" onfocus="selectMe('Organic')"><span>Organic Mode</span></label></td>
+			    		<td><label><input type="radio" name="toggle" value="organic" onfocus="selectMe('Organic')" ><span>Organic Mode</span></label></td>
 			    		<td><label><input type="radio" name="toggle" value="semi-detached" onfocus="selectMe('Semi-detached')"><span>Semi-Detached Mode</span></label></td>
 			    		<td><label><input type="radio"  name="toggle" value="embedded" onfocus="selectMe('Embedded')"><span>Embedded Mode</span></label></td>
 			    	</tr>
@@ -188,12 +209,12 @@
 			    	</tr>
 			    </table>
 		    </div>
-		    
+
 		  </div>
 		  <div class="column" style="background-color:#e0e2e4; text-align: justify; ">
-		    
+
 		    <!-- Introduction of Cocomo and Instruction  -->
-		    <p>This application derives the COCOMO software engineering metric as found in Robert Pressman's "Software Engineering, A Practitioner's Approach", (McGraw-Hill,97). The specific version utilized here is the "basic" model. 
+		    <p>This application derives the COCOMO software engineering metric as found in Robert Pressman's "Software Engineering, A Practitioner's Approach", (McGraw-Hill,97). The specific version utilized here is the "basic" model.
 		    </p>
 
 		    <p>
