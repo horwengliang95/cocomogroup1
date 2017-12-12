@@ -1,3 +1,7 @@
+#URL for Basic COCOMO
+http://basiccocomo.000webhostapp.com/ (New Version)
+http://groups.engin.umd.umich.edu/CIS/course.des/cis525/js/f00/kutcher/kutcher.html (Original Version)
+
 # cocomogroup1
 This is the git repository for Group 1 in development of COCOMO
 
